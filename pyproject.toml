@@ -13,7 +13,7 @@ numpy = "1.26.4"
 pandas = "2.2.2"
 matplotlib = "3.9.0"
 torch = "2.3.0"
-torchvision = "0.18.0"
+torchvision = "0.19.1"
 seaborn = "0.13.2"
 scikit-learn = "1.5.0"
 
