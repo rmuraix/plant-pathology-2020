@@ -25,7 +25,7 @@ from lrs_scheduler import WarmRestart, warm_restart
 class CoolSystem(pl.LightningModule):
     def __init__(self, hparams):
         super().__init__()
-        self.hparams = hparams
+        self.save_hyperparameters(hparams)
 
         # 让每次模型初始化一致, 不让只要中间有再次初始化的情况, 结果立马跑偏
         seed_reproducer(self.hparams.seed)
@@ -164,10 +164,8 @@ if __name__ == "__main__":
             monitor="val_roc_auc",
             save_top_k=6,
             mode="max",
-            filepath=os.path.join(
-                hparams.log_dir,
-                f"fold={fold_i}" + "-{epoch}-{val_loss:.4f}-{val_roc_auc:.4f}",
-            ),
+            dirpath=os.path.join(hparams.log_dir, f"fold={fold_i}"),
+            filename="{epoch}-{val_loss:.4f}-{val_roc_auc:.4f}",
         )
         early_stop_callback = EarlyStopping(
             monitor="val_roc_auc", patience=10, mode="max", verbose=True
@@ -176,17 +174,15 @@ if __name__ == "__main__":
         # Instance Model, Trainer and train model
         model = CoolSystem(hparams)
         trainer = pl.Trainer(
-            gpus=hparams.gpus,
+            devices=hparams.gpus,
+            accelerator="gpu",
             min_epochs=70,
             max_epochs=hparams.max_epochs,
-            early_stop_callback=early_stop_callback,
-            checkpoint_callback=checkpoint_callback,
-            progress_bar_refresh_rate=0,
+            callbacks=[early_stop_callback, checkpoint_callback],
             precision=hparams.precision,
             num_sanity_val_steps=0,
             profiler=False,
-            weights_summary=None,
-            use_dp=True,
+            enable_model_summary=False,
             gradient_clip_val=hparams.gradient_clip_val,
         )
         trainer.fit(model, train_dataloader, val_dataloader)
