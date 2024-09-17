@@ -21,7 +21,6 @@ pytorch-lightning = "2.4.0"
 scipy = "1.14.1"
 tqdm = "4.66.5"
 albumentations = "1.4.15"
-pretrainedmodels = "0.7.4"
 wandb = "0.18.1"
 
 [tool.poetry.group.dev.dependencies]

@@ -1690,21 +1690,6 @@ files = [
 typing-extensions = {version = ">=4.1.0", markers = "python_version < \"3.11\""}
 
 [[package]]
-name = "munch"
-version = "4.0.0"
-description = "A dot-accessible dictionary (a la JavaScript objects)"
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "munch-4.0.0-py2.py3-none-any.whl", hash = "sha256:71033c45db9fb677a0b7eb517a4ce70ae09258490e419b0e7f00d1e386ecb1b4"},
-    {file = "munch-4.0.0.tar.gz", hash = "sha256:542cb151461263216a4e37c3fd9afc425feeaf38aaa3025cd2a981fadb422235"},
-]
-
-[package.extras]
-testing = ["astroid (>=2.0)", "coverage", "pylint (>=2.3.1,<2.4.0)", "pytest"]
-yaml = ["PyYAML (>=5.1.0)"]
-
-[[package]]
 name = "nbdev"
 version = "2.3.29"
 description = "Create delightful software with Jupyter Notebooks"
@@ -2239,22 +2224,6 @@ identify = ">=1.0.0"
 nodeenv = ">=0.11.1"
 pyyaml = ">=5.1"
 virtualenv = ">=20.10.0"
-
-[[package]]
-name = "pretrainedmodels"
-version = "0.7.4"
-description = "Pretrained models for Pytorch"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pretrainedmodels-0.7.4.tar.gz", hash = "sha256:7e77ead4619a3e11ab3c41982c8ad5b86edffe37c87fd2a37ec3c2cc6470b98a"},
-]
-
-[package.dependencies]
-munch = "*"
-torch = "*"
-torchvision = "*"
-tqdm = "*"
 
 [[package]]
 name = "prompt-toolkit"
@@ -3726,4 +3695,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.10"
-content-hash = "a9935cee535a0478da30c8dd65a2c57853a5c96baf8fdbe506e53ddf943aa660"
+content-hash = "30aee48b7cc80a7e6a7852314b633bba50bec42790e6109e42d8b9cf5969434d"

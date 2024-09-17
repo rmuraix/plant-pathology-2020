@@ -5,7 +5,7 @@
 # Third party libraries
 import torch
 import torch.nn as nn
-import pretrainedmodels
+from torchvision import models
 
 
 def l2_norm(input, axis=1):
@@ -30,17 +30,17 @@ class se_resnext50_32x4d(nn.Module):
     def __init__(self):
         super(se_resnext50_32x4d, self).__init__()
 
-        self.model_ft = nn.Sequential(
-            *list(
-                pretrainedmodels.__dict__["se_resnext50_32x4d"](
-                    num_classes=1000, pretrained="imagenet"
-                ).children()
-            )[:-2]
-        )
+        # Use torchvision's ResNeXt50 model
+        self.model_ft = models.resnext50_32x4d(pretrained=True)
+
+        # Exclude the last two layers
+        self.model_ft = nn.Sequential(*list(self.model_ft.children())[:-2])
+
         self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))
-        self.model_ft.last_linear = None
         self.fea_bn = nn.BatchNorm1d(2048)
         self.fea_bn.bias.requires_grad_(False)
+
+        # BinaryHead is used as is
         self.binary_head = BinaryHead(4, emb_size=2048, s=1)
         self.dropout = nn.Dropout(p=0.2)
 
@@ -49,7 +49,6 @@ class se_resnext50_32x4d(nn.Module):
         img_feature = self.avg_pool(img_feature)
         img_feature = img_feature.view(img_feature.size(0), -1)
         fea = self.fea_bn(img_feature)
-        # fea = self.dropout(fea)
         output = self.binary_head(fea)
 
         return output
