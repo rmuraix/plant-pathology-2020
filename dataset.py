@@ -20,8 +20,7 @@ from albumentations import (
     MotionBlur,
     Normalize,
     OneOf,
-    RandomBrightness,
-    RandomContrast,
+    RandomBrightnessContrast,
     Resize,
     ShiftScaleRotate,
     VerticalFlip,
@@ -85,7 +84,13 @@ def generate_transforms(image_size):
     train_transform = Compose(
         [
             Resize(height=image_size[0], width=image_size[1]),
-            OneOf([RandomBrightness(limit=0.1, p=1), RandomContrast(limit=0.1, p=1)]),
+            OneOf(
+                [
+                    RandomBrightnessContrast(
+                        brightness_limit=0.1, contrast_limit=0.1, p=1
+                    )
+                ]
+            ),
             OneOf(
                 [
                     MotionBlur(blur_limit=3),
