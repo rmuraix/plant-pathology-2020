@@ -1,13 +1,6 @@
-# @Author: yican, yelanlan
-# @Date: 2020-05-27 22:58:45
-# @Last Modified by:   yican
-# @Last Modified time: 2020-05-27 22:58:45
-
-# Standard libraries
 import os
 from time import time
 
-# Third party libraries
 import cv2
 import numpy as np
 import pandas as pd

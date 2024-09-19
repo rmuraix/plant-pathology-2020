@@ -1,10 +1,5 @@
-# @Author: yican, yelanlan
-# @Date: 2020-06-16 20:43:36
-# @Last Modified by:   yican
-# @Last Modified time: 2020-06-14 16:21:14
-# Third party libraries
-import torch.nn as nn
 import torch
+import torch.nn as nn
 
 
 class CrossEntropyLossOneHot(nn.Module):

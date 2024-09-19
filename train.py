@@ -1,8 +1,3 @@
-# @Author: yican, yelanlan
-# @Date: 2020-06-16 20:36:19
-# @Last Modified by:   yican.yc
-# @Last Modified time: 2020-06-16 20:36:19
-# Standard libraries
 import gc
 import os
 from time import time

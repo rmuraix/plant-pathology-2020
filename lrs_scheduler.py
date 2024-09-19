@@ -1,11 +1,5 @@
-# @Author: yican, yelanlan
-# @Date: 2020-06-16 20:43:36
-# @Last Modified by:   yican
-# @Last Modified time: 2020-06-30 10:09:04
-# Standard libraries
 import math
 
-# Third party libraries
 from torch.optim import lr_scheduler
 
 

@@ -1,25 +1,16 @@
-# @Author: yican, yelanlan
-# @Date: 2020-07-07 14:47:29
-# @Last Modified by:   yican
-# @Last Modified time: 2020-07-07 14:47:29
-# Standard libraries
 import pandas as pd
 import pytorch_lightning as pl
-from pytorch_lightning.callbacks import EarlyStopping
-
-# Third party libraries
 import torch
-from dataset import generate_transforms
-from sklearn.model_selection import KFold
+from pytorch_lightning.callbacks import EarlyStopping
 from scipy.special import softmax
+from sklearn.model_selection import KFold
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 # User defined libraries
+from dataset import PlantDataset, generate_transforms
 from train import CoolSystem
-from utils import init_hparams, init_logger, seed_reproducer, load_data
-from dataset import PlantDataset
-
+from utils import init_hparams, init_logger, load_data, seed_reproducer
 
 if __name__ == "__main__":
     # Make experiment reproducible
@@ -44,26 +35,25 @@ if __name__ == "__main__":
     # Instance Model, Trainer and train model
     model = CoolSystem(hparams)
     trainer = pl.Trainer(
-        gpus=hparams.gpus,
+        devices=hparams.gpus,
+        accelerator="gpu",
         min_epochs=70,
         max_epochs=hparams.max_epochs,
-        early_stop_callback=early_stop_callback,
-        progress_bar_refresh_rate=0,
+        callbacks=[early_stop_callback],
+        enable_progress_bar=False,
         precision=hparams.precision,
         num_sanity_val_steps=0,
         profiler=False,
-        weights_summary=None,
-        use_dp=True,
         gradient_clip_val=hparams.gradient_clip_val,
     )
 
     submission = []
     PATH = [
-        "logs_submit/fold=0-epoch=42-val_loss=0.1807-val_roc_auc=0.9931.ckpt",
-        "logs_submit/fold=1-epoch=46-val_loss=0.1486-val_roc_auc=0.9946.ckpt",
-        "logs_submit/fold=2-epoch=47-val_loss=0.1212-val_roc_auc=0.9952.ckpt",
-        "logs_submit/fold=3-epoch=41-val_loss=0.1005-val_roc_auc=0.9884.ckpt",
-        "logs_submit/fold=4-epoch=66-val_loss=0.1144-val_roc_auc=0.9913.ckpt",
+        "logs_submit/fold=0/epoch=57-val_loss=0.0000-val_roc_auc=0.9849.ckpt",
+        "logs_submit/fold=1/epoch=48-val_loss=0.0000-val_roc_auc=0.9874.ckpt",
+        "logs_submit/fold=2/epoch=69-val_loss=0.0000-val_roc_auc=0.9958.ckpt",
+        "logs_submit/fold=3/epoch=55-val_loss=0.0000-val_roc_auc=0.9727.ckpt",
+        "logs_submit/fold=4/epoch=69-val_loss=0.0000-val_roc_auc=0.9726.ckpt",
     ]
 
     folds = KFold(n_splits=5, shuffle=True, random_state=hparams.seed)

@@ -1,22 +1,14 @@
-# @Author: yican, yelanlan
-# @Date: 2020-07-07 14:48:03
-# @Last Modified by:   yican
-# @Last Modified time: 2020-07-07 14:48:03
-# Standard libraries
 import pytorch_lightning as pl
-from pytorch_lightning.callbacks import EarlyStopping
-
-# Third party libraries
 import torch
+from pytorch_lightning.callbacks import EarlyStopping
 from scipy.special import softmax
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 # User defined libraries
-from dataset import generate_transforms, PlantDataset
+from dataset import PlantDataset, generate_transforms
 from train import CoolSystem
-from utils import init_hparams, init_logger, seed_reproducer, load_data
-
+from utils import init_hparams, init_logger, load_data, seed_reproducer
 
 if __name__ == "__main__":
     # Make experiment reproducible
@@ -41,7 +33,8 @@ if __name__ == "__main__":
     # Instance Model, Trainer and train model
     model = CoolSystem(hparams)
     trainer = pl.Trainer(
-        gpus=hparams.gpus,
+        devices=hparams.gpus,
+        accelerator="gpu",
         min_epochs=70,
         max_epochs=hparams.max_epochs,
         early_stop_callback=early_stop_callback,
@@ -49,8 +42,6 @@ if __name__ == "__main__":
         precision=hparams.precision,
         num_sanity_val_steps=0,
         profiler=False,
-        weights_summary=None,
-        use_dp=True,
         gradient_clip_val=hparams.gradient_clip_val,
     )
 

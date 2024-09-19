@@ -1,8 +1,3 @@
-# @Author: yelanlan, yican
-# @Date: 2020-06-16 20:42:51
-# @Last Modified by:   yican
-# @Last Modified time: 2020-06-16 20:42:51
-# Third party libraries
 import torch
 import torch.nn as nn
 from torchvision import models
