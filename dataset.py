@@ -61,8 +61,8 @@ class PlantDataset(Dataset):
         # Soft label
         if self.soft_labels is not None:
             label = torch.FloatTensor(
-                (self.data.iloc[index, 1:].values * 0.7).astype(np.float)
-                + (self.soft_labels.iloc[index, 1:].values * 0.3).astype(np.float)
+                (self.data.iloc[index, 1:].values * 0.7).astype(float)
+                + (self.soft_labels.iloc[index, 1:].values * 0.3).astype(float)
             )
         else:
             label = torch.FloatTensor(self.data.iloc[index, 1:].values.astype(np.int64))
