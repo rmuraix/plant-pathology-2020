@@ -37,8 +37,8 @@ if __name__ == "__main__":
         accelerator="gpu",
         min_epochs=70,
         max_epochs=hparams.max_epochs,
-        early_stop_callback=early_stop_callback,
-        progress_bar_refresh_rate=0,
+        callbacks=[early_stop_callback],
+        enable_progress_bar=False,
         precision=hparams.precision,
         num_sanity_val_steps=0,
         profiler=False,
@@ -47,11 +47,11 @@ if __name__ == "__main__":
 
     submission = []
     PATH = [
-        "logs_submit_distill/fold=0-epoch=59-val_loss=0.7352-val_roc_auc=0.9928.ckpt",
-        "logs_submit_distill/fold=1-epoch=28-val_loss=0.8069-val_roc_auc=0.9918.ckpt",
-        "logs_submit_distill/fold=2-epoch=28-val_loss=0.7605-val_roc_auc=0.9959.ckpt",
-        "logs_submit_distill/fold=3-epoch=66-val_loss=0.7628-val_roc_auc=0.9850.ckpt",
-        "logs_submit_distill/fold=4-epoch=32-val_loss=0.7845-val_roc_auc=0.9915.ckpt",
+        "logs_submit_distill/fold=0/epoch=68-val_loss=0.0000-val_roc_auc=0.9827.ckpt",
+        "logs_submit_distill/fold=1/epoch=66-val_loss=0.0000-val_roc_auc=0.9900.ckpt",
+        "logs_submit_distill/fold=2/epoch=67-val_loss=0.0000-val_roc_auc=0.9978.ckpt",
+        "logs_submit_distill/fold=3/epoch=45-val_loss=0.0000-val_roc_auc=0.9849.ckpt",
+        "logs_submit_distill/fold=4/epoch=53-val_loss=0.0000-val_roc_auc=0.9748.ckpt",
     ]
 
     # ==============================================================================================================
