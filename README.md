@@ -17,6 +17,7 @@ As it was a late submission, I tried to improve on the [first place solution](ht
 
 ```bash
 poetry install
+poetry run wandb login
 ```
 You can also use DevContainer.
 

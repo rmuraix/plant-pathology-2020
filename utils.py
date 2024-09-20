@@ -1,14 +1,12 @@
-import logging
 import os
 import random
 from argparse import ArgumentParser
-from logging import Logger
-from logging.handlers import TimedRotatingFileHandler
 
 import cv2
 import numpy as np
 import pandas as pd
 import torch
+from lightning.pytorch.loggers import WandbLogger
 
 IMG_SHAPE = (1365, 2048, 3)
 # IMAGE_FOLDER = "/home/public_data_center/kaggle/plant_pathology_2020/images"
@@ -94,78 +92,20 @@ def init_hparams():
     return hparams
 
 
-def load_data(logger, frac=1):
+def load_data(frac=1):
     data, test_data = (
         pd.read_csv("data/train.csv"),
         pd.read_csv("data/sample_submission.csv"),
     )
     # Do fast experiment
     if frac < 1:
-        logger.info(f"use frac : {frac}")
         data = data.sample(frac=frac).reset_index(drop=True)
         test_data = test_data.sample(frac=frac).reset_index(drop=True)
     return data, test_data
 
 
-def init_logger(log_name, log_dir=None):
-    """Logging Module
-    Reference: https://juejin.im/post/5bc2bd3a5188255c94465d31
-    Logger Initialisation
-    Logger Module Functions: 1.
-        1. Logs are printed to both screen and file.
-        2. Retain the last week's log files by default
-    Logging Levels: NOTSET (0), DEBUG (10), INFO
-        NOTSET (0), DEBUG (10), INFO (20), WARNING (30), ERROR (40), CRITICAL (50).
-    If level 10 is set, only messages above 10 will be printed.
-
-    Parameters
-    ----------
-    log_name : str
-        Log file name
-    log_dir : str
-        Directory where logs are stored
-
-    Returns
-    -------
-    RootLogger
-        Example of a Python logger
-    """
-
-    mkdir(log_dir)
-
-    # If Logger is defined in more than one place,
-    # ensure uniqueness of logger based on log_name
-    if log_name not in Logger.manager.loggerDict:
-        logging.root.handlers.clear()
-        logger = logging.getLogger(log_name)
-        logger.setLevel(logging.DEBUG)
-
-        # Define the log message format
-        datefmt = "%Y-%m-%d %H:%M:%S"
-        format_str = (
-            "[%(asctime)s] %(filename)s[%(lineno)4s] : %(levelname)s  %(message)s"
-        )
-        formatter = logging.Formatter(format_str, datefmt)
-
-        # Output to screen above log level INFO
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
-        console_handler.setFormatter(formatter)
-        logger.addHandler(console_handler)
-
-        if log_dir is not None:
-            # Output to {log_name}.log file above log level INFO
-            file_info_handler = TimedRotatingFileHandler(
-                filename=os.path.join(log_dir, "%s.log" % log_name),
-                when="D",
-                backupCount=7,
-            )
-            file_info_handler.setFormatter(formatter)
-            file_info_handler.setLevel(logging.INFO)
-            logger.addHandler(file_info_handler)
-
-    logger = logging.getLogger(log_name)
-
+def init_logger():
+    logger = WandbLogger(project="kaggle-plant-pathology-2020", log_model="all")
     return logger
 
 

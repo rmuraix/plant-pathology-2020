@@ -10,6 +10,7 @@ from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import KFold
 
+import wandb
 from dataset import generate_dataloaders, generate_transforms
 from loss_function import CrossEntropyLossOneHot
 from lrs_scheduler import WarmRestart
@@ -28,7 +29,6 @@ class CoolSystem(pl.LightningModule):
 
         self.model = se_resnext50_32x4d()
         self.criterion = CrossEntropyLossOneHot()
-        self.logger_kun = init_logger("kun_in", hparams.log_dir)
 
         self.train_outputs = []
         self.val_outputs = []
@@ -69,7 +69,7 @@ class CoolSystem(pl.LightningModule):
         ).mean()
         self.train_outputs.clear()
 
-        return {"train_loss": train_loss_mean}
+        self.log("train_loss", train_loss_mean)
 
     def validation_step(self, batch, batch_idx):
         step_start_time = time()
@@ -109,20 +109,10 @@ class CoolSystem(pl.LightningModule):
         )
         val_roc_auc = roc_auc_score(labels_all, scores_all)
 
-        self.logger_kun.info(
-            f"{self.hparams.fold_i}-{self.trainer.current_epoch} | "
-            f"lr : {self.scheduler.get_lr()[0]:.6f} | "
-            f"val_loss : {val_loss_mean:.4f} | "
-            f"val_roc_auc : {val_roc_auc:.4f} | "
-            f"data_load_times : {self.data_load_times:.2f} | "
-            f"batch_run_times : {self.batch_run_times:.2f}"
-        )
-
         self.val_outputs.clear()
 
-        # Include `val_roc_auc` in the return value.
+        self.log("val_loss", val_loss_mean)
         self.log("val_roc_auc", val_roc_auc, prog_bar=True)
-        return {"val_loss": val_loss_mean, "val_roc_auc": val_roc_auc}
 
 
 if __name__ == "__main__":
@@ -130,9 +120,7 @@ if __name__ == "__main__":
 
     hparams = init_hparams()
 
-    logger = init_logger("kun_out", log_dir=hparams.log_dir)
-
-    data, test_data = load_data(logger)
+    data, test_data = load_data()
 
     transforms = generate_transforms(hparams.image_size)
 
@@ -140,6 +128,7 @@ if __name__ == "__main__":
     valid_roc_auc_scores = []
     folds = KFold(n_splits=5, shuffle=True, random_state=hparams.seed)
     for fold_i, (train_index, val_index) in enumerate(folds.split(data)):
+        logger = init_logger()
         hparams.fold_i = fold_i
         train_data = data.iloc[train_index, :].reset_index(drop=True)
         val_data = data.iloc[val_index, :].reset_index(drop=True)
@@ -153,7 +142,7 @@ if __name__ == "__main__":
             monitor="val_roc_auc",
             save_top_k=6,
             mode="max",
-            dirpath=os.path.join(hparams.log_dir, f"fold={fold_i}"),
+            dirpath=os.path.join(hparams.log_dir, f"fold{fold_i}"),
             filename="{epoch}-{val_loss:.4f}-{val_roc_auc:.4f}",
         )
         early_stop_callback = EarlyStopping(
@@ -165,7 +154,7 @@ if __name__ == "__main__":
         trainer = pl.Trainer(
             devices=hparams.gpus,
             accelerator="gpu",
-            min_epochs=70,
+            min_epochs=20,
             max_epochs=hparams.max_epochs,
             callbacks=[early_stop_callback, checkpoint_callback],
             precision=hparams.precision,
@@ -173,14 +162,15 @@ if __name__ == "__main__":
             profiler=False,
             enable_model_summary=False,
             gradient_clip_val=hparams.gradient_clip_val,
+            logger=logger,
         )
 
         trainer.fit(model, train_dataloader, val_dataloader)
 
         best_score = checkpoint_callback.best_model_score
         valid_roc_auc_scores.append(round(best_score.item(), 4))
-        logger.info(valid_roc_auc_scores)
 
         del model
         gc.collect()
         torch.cuda.empty_cache()
+        wandb.finish()
