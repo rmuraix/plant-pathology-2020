@@ -82,7 +82,7 @@ def init_hparams():
     parser.add_argument("--log_dir", type=str, default="logs_submit")
     try:
         hparams = parser.parse_args()
-    except:
+    except Exception:
         hparams = parser.parse_args([])
     print(type(hparams.gpus), hparams.gpus)
     if len(hparams.gpus) == 1:
