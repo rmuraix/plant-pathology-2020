@@ -178,4 +178,5 @@ pyrightconfig.json
 data/
 lightning_logs/
 logs_*/
+wandb/
 *.csv

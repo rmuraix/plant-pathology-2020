@@ -20,10 +20,10 @@ if __name__ == "__main__":
     hparams = init_hparams()
 
     # init logger
-    logger = init_logger("kun_out", log_dir=hparams.log_dir)
+    logger = init_logger()
 
     # Load data
-    data, test_data = load_data(logger)
+    data, test_data = load_data()
 
     # Generate transforms
     transforms = generate_transforms(hparams.image_size)
@@ -45,6 +45,7 @@ if __name__ == "__main__":
         num_sanity_val_steps=0,
         profiler=False,
         gradient_clip_val=hparams.gradient_clip_val,
+        logger=logger,
     )
 
     submission = []
