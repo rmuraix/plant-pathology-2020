@@ -73,7 +73,7 @@ def init_hparams():
     parser.add_argument("--image_size", nargs="+", default=[480, 768])
     parser.add_argument("--seed", type=int, default=2020)
     parser.add_argument("--max_epochs", type=int, default=70)
-    parser.add_argument("--gpus", nargs="+", default=[0, 1])
+    parser.add_argument("--gpus", nargs="+", default=[0])
     parser.add_argument("--precision", type=int, default=16)
     parser.add_argument("--gradient_clip_val", type=float, default=1)
     parser.add_argument("--soft_labels_filename", type=str, default="")
