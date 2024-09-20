@@ -75,7 +75,7 @@ def init_hparams():
     parser.add_argument("--image_size", nargs="+", default=[480, 768])
     parser.add_argument("--seed", type=int, default=2020)
     parser.add_argument("--max_epochs", type=int, default=70)
-    parser.add_argument("--gpus", nargs="+", default=[0, 1])  # 输入1 2 3
+    parser.add_argument("--gpus", nargs="+", default=[0, 1])
     parser.add_argument("--precision", type=int, default=16)
     parser.add_argument("--gradient_clip_val", type=float, default=1)
     parser.add_argument("--soft_labels_filename", type=str, default="")
@@ -108,52 +108,53 @@ def load_data(logger, frac=1):
 
 
 def init_logger(log_name, log_dir=None):
-    """日志模块
+    """Logging Module
     Reference: https://juejin.im/post/5bc2bd3a5188255c94465d31
-    日志器初始化
-    日志模块功能:
-        1. 日志同时打印到到屏幕和文件
-        2. 默认保留近一周的日志文件
-    日志等级:
-        NOTSET（0）、DEBUG（10）、INFO（20）、WARNING（30）、ERROR（40）、CRITICAL（50）
-    如果设定等级为10, 则只会打印10以上的信息
+    Logger Initialisation
+    Logger Module Functions: 1.
+        1. Logs are printed to both screen and file.
+        2. Retain the last week's log files by default
+    Logging Levels: NOTSET (0), DEBUG (10), INFO
+        NOTSET (0), DEBUG (10), INFO (20), WARNING (30), ERROR (40), CRITICAL (50).
+    If level 10 is set, only messages above 10 will be printed.
 
     Parameters
     ----------
     log_name : str
-        日志文件名
+        Log file name
     log_dir : str
-        日志保存的目录
+        Directory where logs are stored
 
     Returns
     -------
     RootLogger
-        Python日志实例
+        Example of a Python logger
     """
 
     mkdir(log_dir)
 
-    # 若多处定义Logger，根据log_name确保日志器的唯一性
+    # If Logger is defined in more than one place,
+    # ensure uniqueness of logger based on log_name
     if log_name not in Logger.manager.loggerDict:
         logging.root.handlers.clear()
         logger = logging.getLogger(log_name)
         logger.setLevel(logging.DEBUG)
 
-        # 定义日志信息格式
+        # Define the log message format
         datefmt = "%Y-%m-%d %H:%M:%S"
         format_str = (
             "[%(asctime)s] %(filename)s[%(lineno)4s] : %(levelname)s  %(message)s"
         )
         formatter = logging.Formatter(format_str, datefmt)
 
-        # 日志等级INFO以上输出到屏幕
+        # Output to screen above log level INFO
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.INFO)
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
 
         if log_dir is not None:
-            # 日志等级INFO以上输出到{log_name}.log文件
+            # Output to {log_name}.log file above log level INFO
             file_info_handler = TimedRotatingFileHandler(
                 filename=os.path.join(log_dir, "%s.log" % log_name),
                 when="D",
@@ -169,7 +170,7 @@ def init_logger(log_name, log_dir=None):
 
 
 def read_image(image_path):
-    """读取图像数据，并转换为RGB格式
+    """Reads image data and converts to RGB format
     32.2 ms ± 2.34 ms -> self
     48.7 ms ± 2.24 ms -> plt.imread(image_path)
     """
