@@ -12,7 +12,7 @@ from sklearn.model_selection import KFold
 
 from dataset import generate_dataloaders, generate_transforms
 from loss_function import CrossEntropyLossOneHot
-from lrs_scheduler import WarmRestart, warm_restart
+from lrs_scheduler import WarmRestart
 
 # User defined libraries
 from models import se_resnext50_32x4d
