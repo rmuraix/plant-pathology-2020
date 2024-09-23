@@ -22,6 +22,7 @@ scipy = "1.14.1"
 tqdm = "4.66.5"
 albumentations = "1.4.15"
 wandb = "0.18.1"
+optuna = "4.0.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "0.6.4"
