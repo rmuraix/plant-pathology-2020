@@ -75,7 +75,7 @@ def init_hparams():
     parser.add_argument("--seed", type=int, default=2020)
     parser.add_argument("--max_epochs", type=int, default=70)
     parser.add_argument("--gpus", nargs="+", default=[0])
-    parser.add_argument("--precision", type=int, default=16)
+    parser.add_argument("--precision", type=str, default="16-mixed")
     parser.add_argument("--gradient_clip_val", type=float, default=1)
     parser.add_argument("--soft_labels_filename", type=str, default="")
     parser.add_argument("--log_dir", type=str, default="logs_submit")
@@ -105,8 +105,8 @@ def load_data(frac=1):
     return data, test_data
 
 
-def init_logger():
-    logger = WandbLogger(project="kaggle-plant-pathology-2020", log_model="all")
+def init_logger(project="kaggle-plant-pathology-2020"):
+    logger = WandbLogger(project=project)
     return logger
 
 
