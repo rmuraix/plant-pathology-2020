@@ -39,7 +39,7 @@ class CoolSystem(pl.LightningModule):
 
     def configure_optimizers(self):
         self.optimizer = torch.optim.Adam(
-            self.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0
+            self.parameters(), lr=0.0001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0
         )
         self.scheduler = WarmRestart(self.optimizer, T_max=10, T_mult=1, eta_min=1e-5)
         return [self.optimizer], [self.scheduler]
@@ -175,7 +175,7 @@ if __name__ == "__main__":
         trainer = pl.Trainer(
             devices=hparams.gpus,
             accelerator="gpu",
-            min_epochs=20,
+            min_epochs=40,
             max_epochs=hparams.max_epochs,
             callbacks=[early_stop_callback, checkpoint_callback],
             precision=hparams.precision,
@@ -184,6 +184,7 @@ if __name__ == "__main__":
             enable_model_summary=False,
             gradient_clip_val=hparams.gradient_clip_val,
             logger=logger,
+            log_every_n_steps=45,
         )
 
         trainer.fit(model, train_dataloader, val_dataloader)

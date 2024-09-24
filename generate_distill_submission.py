@@ -65,7 +65,7 @@ if __name__ == "__main__":
     trainer = pl.Trainer(
         devices=hparams.gpus,
         accelerator="gpu",
-        min_epochs=20,
+        min_epochs=40,
         max_epochs=hparams.max_epochs,
         callbacks=[early_stop_callback],
         enable_progress_bar=False,
