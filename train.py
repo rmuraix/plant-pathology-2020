@@ -1,4 +1,5 @@
 import gc
+import json
 import os
 from time import time
 
@@ -121,9 +122,29 @@ if __name__ == "__main__":
     hparams = init_hparams()
 
     data, test_data = load_data()
+    try:
+        with open("augmentation_best_params.json", "r") as f:
+            augmentation_best_params = json.load(f)
 
-    transforms = generate_transforms(hparams.image_size)
-
+        transforms = generate_transforms(
+            hparams.image_size,
+            augmentation_best_params["brightness_limit"],
+            augmentation_best_params["contrast_limit"],
+            augmentation_best_params["brightness_contrast_p"],
+            augmentation_best_params["motion_blur_limit"],
+            augmentation_best_params["median_blur_limit"],
+            augmentation_best_params["gaussian_blur_limit"],
+            augmentation_best_params["blur_p"],
+            augmentation_best_params["vertical_flip_p"],
+            augmentation_best_params["holizontal_flip_p"],
+            augmentation_best_params["shift_limit"],
+            augmentation_best_params["scale_limit"],
+            augmentation_best_params["rotate_limit"],
+        )
+    except FileNotFoundError:
+        transforms = generate_transforms(
+            hparams.image_size,
+        )
     # Cross-validation
     valid_roc_auc_scores = []
     folds = KFold(n_splits=5, shuffle=True, random_state=hparams.seed)

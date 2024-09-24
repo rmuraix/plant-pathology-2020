@@ -1,3 +1,5 @@
+import json
+
 import pytorch_lightning as pl
 import torch
 from pytorch_lightning.callbacks import EarlyStopping
@@ -24,7 +26,29 @@ if __name__ == "__main__":
     data, test_data = load_data()
 
     # Generate transforms
-    transforms = generate_transforms(hparams.image_size)
+    try:
+        with open("augmentation_best_params.json", "r") as f:
+            augmentation_best_params = json.load(f)
+
+        transforms = generate_transforms(
+            hparams.image_size,
+            augmentation_best_params["brightness_limit"],
+            augmentation_best_params["contrast_limit"],
+            augmentation_best_params["brightness_contrast_p"],
+            augmentation_best_params["motion_blur_limit"],
+            augmentation_best_params["median_blur_limit"],
+            augmentation_best_params["gaussian_blur_limit"],
+            augmentation_best_params["blur_p"],
+            augmentation_best_params["vertical_flip_p"],
+            augmentation_best_params["holizontal_flip_p"],
+            augmentation_best_params["shift_limit"],
+            augmentation_best_params["scale_limit"],
+            augmentation_best_params["rotate_limit"],
+        )
+    except FileNotFoundError:
+        transforms = generate_transforms(
+            hparams.image_size,
+        )
 
     early_stop_callback = EarlyStopping(
         monitor="val_roc_auc", patience=10, mode="max", verbose=True

@@ -97,5 +97,5 @@ if __name__ == "__main__":
     print(f"Acc:{study.best_value}")
 
     # save hyperparameters to json
-    with open("optuna_best_params.json", "w") as f:
+    with open("augmentation_best_params.json", "w") as f:
         json.dump(study.best_params, f)
