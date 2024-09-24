@@ -1,5 +1,6 @@
 import os
 import random
+import re
 from argparse import ArgumentParser
 
 import cv2
@@ -115,3 +116,30 @@ def read_image(image_path):
     48.7 ms ± 2.24 ms -> plt.imread(image_path)
     """
     return cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
+
+
+def select_best_ckpt(logs_dir):
+    pattern = r"fold(\d+)/epoch=\d+-val_loss=\d+\.\d+-val_roc_auc=(\d+\.\d+)\.ckpt"
+
+    best_checkpoints = {}
+
+    # Loop through the files in the directory and select the best checkpoint for each fold
+    for root, _, files in os.walk(logs_dir):
+        for file in files:
+            match = re.search(pattern, os.path.join(root, file))
+            if match:
+                fold = int(match.group(1))
+                roc_auc = float(match.group(2))
+
+                # Save the file with the highest roc_auc for the current fold
+                if (
+                    fold not in best_checkpoints
+                    or roc_auc > best_checkpoints[fold]["roc_auc"]
+                ):
+                    best_checkpoints[fold] = {
+                        "file": os.path.join(root, file),
+                        "roc_auc": roc_auc,
+                    }
+
+    # Store the path of the checkpoint with the highest roc_auc in each fold in the list
+    return [data["file"] for data in best_checkpoints.values()]

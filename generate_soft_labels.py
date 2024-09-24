@@ -12,7 +12,13 @@ from tqdm import tqdm
 # User defined libraries
 from dataset import PlantDataset, generate_transforms
 from train import CoolSystem
-from utils import init_hparams, init_logger, load_data, seed_reproducer
+from utils import (
+    init_hparams,
+    init_logger,
+    load_data,
+    seed_reproducer,
+    select_best_ckpt,
+)
 
 if __name__ == "__main__":
     # Make experiment reproducible
@@ -73,13 +79,7 @@ if __name__ == "__main__":
     )
 
     submission = []
-    PATH = [
-        "logs_submit/fold=0/epoch=57-val_loss=0.0000-val_roc_auc=0.9849.ckpt",
-        "logs_submit/fold=1/epoch=48-val_loss=0.0000-val_roc_auc=0.9874.ckpt",
-        "logs_submit/fold=2/epoch=69-val_loss=0.0000-val_roc_auc=0.9958.ckpt",
-        "logs_submit/fold=3/epoch=55-val_loss=0.0000-val_roc_auc=0.9727.ckpt",
-        "logs_submit/fold=4/epoch=69-val_loss=0.0000-val_roc_auc=0.9726.ckpt",
-    ]
+    PATH = select_best_ckpt(hparams.log_dir)
 
     folds = KFold(n_splits=5, shuffle=True, random_state=hparams.seed)
     train_data_cp = []
