@@ -17,7 +17,7 @@ from loss_function import CrossEntropyLossOneHot
 from lrs_scheduler import WarmRestart
 
 # User defined libraries
-from models import se_resnext50_32x4d
+from models import resnext50_32x4d
 from utils import init_hparams, init_logger, load_data, seed_reproducer
 
 
@@ -28,7 +28,7 @@ class CoolSystem(pl.LightningModule):
 
         seed_reproducer(self.hparams.seed)
 
-        self.model = se_resnext50_32x4d()
+        self.model = resnext50_32x4d()
         self.criterion = CrossEntropyLossOneHot()
 
         self.train_outputs = []

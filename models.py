@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from torchvision import models
+from torchvision.models import ResNeXt50_32X4D_Weights
 
 
 def l2_norm(input, axis=1):
@@ -21,12 +22,12 @@ class BinaryHead(nn.Module):
         return logit
 
 
-class se_resnext50_32x4d(nn.Module):
+class resnext50_32x4d(nn.Module):
     def __init__(self):
-        super(se_resnext50_32x4d, self).__init__()
+        super(resnext50_32x4d, self).__init__()
 
         # Use torchvision's ResNeXt50 model
-        self.model_ft = models.resnext50_32x4d(pretrained=True)
+        self.model_ft = models.resnext50_32x4d(weights=ResNeXt50_32X4D_Weights.DEFAULT)
 
         # Exclude the last two layers
         self.model_ft = nn.Sequential(*list(self.model_ft.children())[:-2])
