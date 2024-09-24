@@ -73,31 +73,43 @@ class PlantDataset(Dataset):
         return len(self.data)
 
 
-def generate_transforms(image_size):
+def generate_transforms(
+    image_size,
+    brightness_limit=0.1,
+    contrast_limit=0.1,
+    brightness_contrast_p=1,
+    motion_blur_limit=3,
+    median_blur_limit=3,
+    gaussian_blur_limit=3,
+    blur_p=0.5,
+    vertical_flip_p=0.5,
+    horizontal_flip_p=0.5,
+    shift_limit=0.2,
+    scale_limit=0.2,
+    rotate_limit=20,
+):
     train_transform = Compose(
         [
             Resize(height=image_size[0], width=image_size[1]),
-            OneOf(
-                [
-                    RandomBrightnessContrast(
-                        brightness_limit=0.1, contrast_limit=0.1, p=1
-                    )
-                ]
+            RandomBrightnessContrast(
+                brightness_limit=brightness_limit,
+                contrast_limit=contrast_limit,
+                p=brightness_contrast_p,
             ),
             OneOf(
                 [
-                    MotionBlur(blur_limit=3),
-                    MedianBlur(blur_limit=3),
-                    GaussianBlur(blur_limit=3),
+                    MotionBlur(blur_limit=motion_blur_limit),
+                    MedianBlur(blur_limit=median_blur_limit),
+                    GaussianBlur(blur_limit=gaussian_blur_limit),
                 ],
-                p=0.5,
+                p=blur_p,
             ),
-            VerticalFlip(p=0.5),
-            HorizontalFlip(p=0.5),
+            VerticalFlip(p=vertical_flip_p),
+            HorizontalFlip(p=horizontal_flip_p),
             ShiftScaleRotate(
-                shift_limit=0.2,
-                scale_limit=0.2,
-                rotate_limit=20,
+                shift_limit=shift_limit,
+                scale_limit=scale_limit,
+                rotate_limit=rotate_limit,
                 interpolation=cv2.INTER_LINEAR,
                 border_mode=cv2.BORDER_REFLECT_101,
                 p=1,

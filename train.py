@@ -1,4 +1,5 @@
 import gc
+import json
 import os
 from time import time
 
@@ -16,7 +17,7 @@ from loss_function import CrossEntropyLossOneHot
 from lrs_scheduler import WarmRestart
 
 # User defined libraries
-from models import se_resnext50_32x4d
+from models import resnext50_32x4d
 from utils import init_hparams, init_logger, load_data, seed_reproducer
 
 
@@ -27,7 +28,7 @@ class CoolSystem(pl.LightningModule):
 
         seed_reproducer(self.hparams.seed)
 
-        self.model = se_resnext50_32x4d()
+        self.model = resnext50_32x4d()
         self.criterion = CrossEntropyLossOneHot()
 
         self.train_outputs = []
@@ -38,7 +39,7 @@ class CoolSystem(pl.LightningModule):
 
     def configure_optimizers(self):
         self.optimizer = torch.optim.Adam(
-            self.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0
+            self.parameters(), lr=0.0001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0
         )
         self.scheduler = WarmRestart(self.optimizer, T_max=10, T_mult=1, eta_min=1e-5)
         return [self.optimizer], [self.scheduler]
@@ -121,9 +122,29 @@ if __name__ == "__main__":
     hparams = init_hparams()
 
     data, test_data = load_data()
+    try:
+        with open("augmentation_best_params.json", "r") as f:
+            augmentation_best_params = json.load(f)
 
-    transforms = generate_transforms(hparams.image_size)
-
+        transforms = generate_transforms(
+            hparams.image_size,
+            augmentation_best_params["brightness_limit"],
+            augmentation_best_params["contrast_limit"],
+            augmentation_best_params["brightness_contrast_p"],
+            augmentation_best_params["motion_blur_limit"],
+            augmentation_best_params["median_blur_limit"],
+            augmentation_best_params["gaussian_blur_limit"],
+            augmentation_best_params["blur_p"],
+            augmentation_best_params["vertical_flip_p"],
+            augmentation_best_params["holizontal_flip_p"],
+            augmentation_best_params["shift_limit"],
+            augmentation_best_params["scale_limit"],
+            augmentation_best_params["rotate_limit"],
+        )
+    except FileNotFoundError:
+        transforms = generate_transforms(
+            hparams.image_size,
+        )
     # Cross-validation
     valid_roc_auc_scores = []
     folds = KFold(n_splits=5, shuffle=True, random_state=hparams.seed)
@@ -154,7 +175,7 @@ if __name__ == "__main__":
         trainer = pl.Trainer(
             devices=hparams.gpus,
             accelerator="gpu",
-            min_epochs=20,
+            min_epochs=40,
             max_epochs=hparams.max_epochs,
             callbacks=[early_stop_callback, checkpoint_callback],
             precision=hparams.precision,
@@ -163,6 +184,7 @@ if __name__ == "__main__":
             enable_model_summary=False,
             gradient_clip_val=hparams.gradient_clip_val,
             logger=logger,
+            log_every_n_steps=45,
         )
 
         trainer.fit(model, train_dataloader, val_dataloader)

@@ -1,3 +1,5 @@
+import json
+
 import pytorch_lightning as pl
 import torch
 from pytorch_lightning.callbacks import EarlyStopping
@@ -8,7 +10,13 @@ from tqdm import tqdm
 # User defined libraries
 from dataset import PlantDataset, generate_transforms
 from train import CoolSystem
-from utils import init_hparams, init_logger, load_data, seed_reproducer
+from utils import (
+    init_hparams,
+    init_logger,
+    load_data,
+    seed_reproducer,
+    select_best_ckpt,
+)
 
 if __name__ == "__main__":
     # Make experiment reproducible
@@ -24,7 +32,29 @@ if __name__ == "__main__":
     data, test_data = load_data()
 
     # Generate transforms
-    transforms = generate_transforms(hparams.image_size)
+    try:
+        with open("augmentation_best_params.json", "r") as f:
+            augmentation_best_params = json.load(f)
+
+        transforms = generate_transforms(
+            hparams.image_size,
+            augmentation_best_params["brightness_limit"],
+            augmentation_best_params["contrast_limit"],
+            augmentation_best_params["brightness_contrast_p"],
+            augmentation_best_params["motion_blur_limit"],
+            augmentation_best_params["median_blur_limit"],
+            augmentation_best_params["gaussian_blur_limit"],
+            augmentation_best_params["blur_p"],
+            augmentation_best_params["vertical_flip_p"],
+            augmentation_best_params["holizontal_flip_p"],
+            augmentation_best_params["shift_limit"],
+            augmentation_best_params["scale_limit"],
+            augmentation_best_params["rotate_limit"],
+        )
+    except FileNotFoundError:
+        transforms = generate_transforms(
+            hparams.image_size,
+        )
 
     early_stop_callback = EarlyStopping(
         monitor="val_roc_auc", patience=10, mode="max", verbose=True
@@ -35,7 +65,7 @@ if __name__ == "__main__":
     trainer = pl.Trainer(
         devices=hparams.gpus,
         accelerator="gpu",
-        min_epochs=20,
+        min_epochs=40,
         max_epochs=hparams.max_epochs,
         callbacks=[early_stop_callback],
         enable_progress_bar=False,
@@ -47,13 +77,7 @@ if __name__ == "__main__":
     )
 
     submission = []
-    PATH = [
-        "logs_submit_distill/fold=0/epoch=68-val_loss=0.0000-val_roc_auc=0.9827.ckpt",
-        "logs_submit_distill/fold=1/epoch=66-val_loss=0.0000-val_roc_auc=0.9900.ckpt",
-        "logs_submit_distill/fold=2/epoch=67-val_loss=0.0000-val_roc_auc=0.9978.ckpt",
-        "logs_submit_distill/fold=3/epoch=45-val_loss=0.0000-val_roc_auc=0.9849.ckpt",
-        "logs_submit_distill/fold=4/epoch=53-val_loss=0.0000-val_roc_auc=0.9748.ckpt",
-    ]
+    PATH = select_best_ckpt(hparams.log_dir)
 
     # ==============================================================================================================
     # Test Submit

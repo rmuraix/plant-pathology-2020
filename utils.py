@@ -1,5 +1,6 @@
 import os
 import random
+import re
 from argparse import ArgumentParser
 
 import cv2
@@ -74,7 +75,7 @@ def init_hparams():
     parser.add_argument("--seed", type=int, default=2020)
     parser.add_argument("--max_epochs", type=int, default=70)
     parser.add_argument("--gpus", nargs="+", default=[0])
-    parser.add_argument("--precision", type=int, default=16)
+    parser.add_argument("--precision", type=str, default="16-mixed")
     parser.add_argument("--gradient_clip_val", type=float, default=1)
     parser.add_argument("--soft_labels_filename", type=str, default="")
     parser.add_argument("--log_dir", type=str, default="logs_submit")
@@ -104,8 +105,8 @@ def load_data(frac=1):
     return data, test_data
 
 
-def init_logger():
-    logger = WandbLogger(project="kaggle-plant-pathology-2020", log_model="all")
+def init_logger(project="kaggle-plant-pathology-2020"):
+    logger = WandbLogger(project=project)
     return logger
 
 
@@ -115,3 +116,30 @@ def read_image(image_path):
     48.7 ms ± 2.24 ms -> plt.imread(image_path)
     """
     return cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
+
+
+def select_best_ckpt(logs_dir):
+    pattern = r"fold(\d+)/epoch=\d+-val_loss=\d+\.\d+-val_roc_auc=(\d+\.\d+)\.ckpt"
+
+    best_checkpoints = {}
+
+    # Loop through the files in the directory and select the best checkpoint for each fold
+    for root, _, files in os.walk(logs_dir):
+        for file in files:
+            match = re.search(pattern, os.path.join(root, file))
+            if match:
+                fold = int(match.group(1))
+                roc_auc = float(match.group(2))
+
+                # Save the file with the highest roc_auc for the current fold
+                if (
+                    fold not in best_checkpoints
+                    or roc_auc > best_checkpoints[fold]["roc_auc"]
+                ):
+                    best_checkpoints[fold] = {
+                        "file": os.path.join(root, file),
+                        "roc_auc": roc_auc,
+                    }
+
+    # Store the path of the checkpoint with the highest roc_auc in each fold in the list
+    return [data["file"] for data in best_checkpoints.values()]

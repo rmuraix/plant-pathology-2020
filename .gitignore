@@ -180,3 +180,4 @@ lightning_logs/
 logs_*/
 wandb/
 *.csv
+augmentation_best_params.json
