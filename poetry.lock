@@ -154,17 +154,17 @@ opencv-python-headless = ">=4.9.0.80"
 
 [[package]]
 name = "albumentations"
-version = "1.4.15"
+version = "1.4.16"
 description = "An efficient library for image augmentation, providing extensive transformations to support machine learning and computer vision tasks."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "albumentations-1.4.15-py3-none-any.whl", hash = "sha256:dc941a2eb5a08361efa4eca55074a432d4986546fb6036731cd8763cf67d87bf"},
-    {file = "albumentations-1.4.15.tar.gz", hash = "sha256:0e86c2e522f12c7f413d765d6095523b9e65a7bfe3d08fb9599d98a989093a48"},
+    {file = "albumentations-1.4.16-py3-none-any.whl", hash = "sha256:a8e90f8d1500e82abf46dfa10f67a8662b335fbc90fccfaeb16a7d30c764b8db"},
+    {file = "albumentations-1.4.16.tar.gz", hash = "sha256:d1b959ef0a20552226b7787529a29aab239ba71ef5024974082b1cd01bf424de"},
 ]
 
 [package.dependencies]
-albucore = ">=0.0.15"
+albucore = "0.0.17"
 eval-type-backport = "*"
 numpy = ">=1.24.4"
 opencv-python-headless = ">=4.9.0.80"
@@ -3992,4 +3992,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.10"
-content-hash = "f9da773b024374d11c81644718f152c1ad6a95b670652b79ba1169263558179e"
+content-hash = "3987fc66759db65e14716f115ad8782a69b0b948d49003113133b520d6c2b3f2"
