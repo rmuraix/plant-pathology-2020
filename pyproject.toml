@@ -20,7 +20,7 @@ opencv-python = "4.10.0.84"
 lightning = "2.4.0"
 scipy = "1.14.1"
 tqdm = "4.66.5"
-albumentations = "1.4.16"
+albumentations = "1.4.17"
 wandb = "0.18.1"
 optuna = "4.0.0"
 
