@@ -154,13 +154,13 @@ opencv-python-headless = ">=4.9.0.80"
 
 [[package]]
 name = "albumentations"
-version = "1.4.17"
-description = "An efficient library for image augmentation, providing extensive transformations to support machine learning and computer vision tasks."
+version = "1.4.18"
+description = "Fast, flexible, and advanced image augmentation library for deep learning and computer vision. Albumentations offers a wide range of transformations for images, masks, bounding boxes, and keypoints, with optimized performance and seamless integration into ML workflows."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "albumentations-1.4.17-py3-none-any.whl", hash = "sha256:522eb0662ba53a870a6c56b17e6a30f379342d6a2049617d792aab05a5a5009c"},
-    {file = "albumentations-1.4.17.tar.gz", hash = "sha256:98eaeb13eb1335c82f78fb1600e29e4bd84014407b3eebda34637acd63ee580f"},
+    {file = "albumentations-1.4.18-py3-none-any.whl", hash = "sha256:57ed0a634de9d3b34d003585aa90e9164e164ccc4ecb797eee8fbad8da1e9eaf"},
+    {file = "albumentations-1.4.18.tar.gz", hash = "sha256:701a9405f059f761f00ce00e187954d01276bdb78b33abcf864e79727db3bf1a"},
 ]
 
 [package.dependencies]
@@ -4012,4 +4012,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.10"
-content-hash = "22f64dd9d28b33d5613dc5b4e13eb198d27c405c5e3eaa16134dce751945d870"
+content-hash = "7dfa7ca6af8eb5b5281a73dab709bf829ba1b173266850a7e1a3ade5373d8227"
