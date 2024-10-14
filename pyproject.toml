@@ -25,7 +25,7 @@ wandb = "0.18.3"
 optuna = "4.0.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "0.6.8"
+ruff = "0.6.9"
 ipykernel = "6.29.5"
 pre-commit = "3.8.0"
 nbdev = "2.3.31"
