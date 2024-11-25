@@ -1823,13 +1823,13 @@ typing-extensions = {version = ">=4.1.0", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "nbdev"
-version = "2.3.31"
+version = "2.3.32"
 description = "Create delightful software with Jupyter Notebooks"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "nbdev-2.3.31-py3-none-any.whl", hash = "sha256:6fe720e04f917c444289a2a97971a0dff94b50be4f4ba2e938e2bbbdf764693a"},
-    {file = "nbdev-2.3.31.tar.gz", hash = "sha256:6b404e070ce56751c5be96a6a901e7f2bb608217644dfafdefbf305bce2aed7a"},
+    {file = "nbdev-2.3.32-py3-none-any.whl", hash = "sha256:d93912a28ad3fddff27c69d00b87d7266a402768c60341586453a7196bce333e"},
+    {file = "nbdev-2.3.32.tar.gz", hash = "sha256:a723d49884d420cdaec26f45ef19beca8ad733032c1dcb55738f77ebe27be9ad"},
 ]
 
 [package.dependencies]
@@ -1840,10 +1840,11 @@ fastcore = ">=1.5.27"
 ghapi = ">=1.0.3"
 packaging = "*"
 PyYAML = "*"
+setuptools = "*"
 watchdog = "*"
 
 [package.extras]
-dev = ["black", "ipywidgets", "matplotlib", "nbclassic", "nbdev-numpy", "nbdev-stdlib", "pandas", "svg.py"]
+dev = ["black", "ipywidgets", "llms-txt", "matplotlib", "nbclassic", "nbdev-numpy", "nbdev-stdlib", "pandas", "pysymbol-llm", "svg.py"]
 
 [[package]]
 name = "nest-asyncio"
@@ -4220,4 +4221,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.10"
-content-hash = "03021cd1267a997127ee7049a2ac5019b5d2f94e8bb429691d854a2c533eeb04"
+content-hash = "f2592dd6016d35d40d40d8d3ed93896c2abbe227b8102a55ab4cf3161ccf1d23"
