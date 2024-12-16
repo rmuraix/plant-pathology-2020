@@ -139,13 +139,13 @@ frozenlist = ">=1.1.0"
 
 [[package]]
 name = "albucore"
-version = "0.0.20"
+version = "0.0.21"
 description = "High-performance image processing functions for deep learning and computer vision."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "albucore-0.0.20-py3-none-any.whl", hash = "sha256:d03749db85fdac6574e9208ec90197de5ef2c0441a39b1ee92eac9241dbc13b6"},
-    {file = "albucore-0.0.20.tar.gz", hash = "sha256:11443b99fc47132f7dc99f30aced6cd33df4508d04c16d61ff7cb9305dbe427f"},
+    {file = "albucore-0.0.21-py3-none-any.whl", hash = "sha256:4a635e0bd969780d3891ece0fff9825f26f584b35df49b247a7938afd524daec"},
+    {file = "albucore-0.0.21.tar.gz", hash = "sha256:345ea0bdb0788dfda2111f56b790b642a46c87a588b7e94c1ee6abd2b20bfdea"},
 ]
 
 [package.dependencies]
@@ -156,21 +156,21 @@ stringzilla = ">=3.10.4"
 
 [[package]]
 name = "albumentations"
-version = "1.4.21"
+version = "1.4.22"
 description = "Fast, flexible, and advanced image augmentation library for deep learning and computer vision. Albumentations offers a wide range of transformations for images, masks, bounding boxes, and keypoints, with optimized performance and seamless integration into ML workflows."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "albumentations-1.4.21-py3-none-any.whl", hash = "sha256:5e346b39df5f782cebcccee320fee5bcf816243e560ba17eb44d8dc3825339b4"},
-    {file = "albumentations-1.4.21.tar.gz", hash = "sha256:62717725a9a046acdd65ea82a25e5e46e37349e2e5073fbf5a1d99f49cb49601"},
+    {file = "albumentations-1.4.22-py3-none-any.whl", hash = "sha256:35ce3800a955a8b83f30c7ebb98539a2b47ed40a6b749f8ddcdeea91170adede"},
+    {file = "albumentations-1.4.22.tar.gz", hash = "sha256:41c190fa98db339135fb4dede9b9f80df2be952810a238ef0051ff162fa42144"},
 ]
 
 [package.dependencies]
-albucore = "0.0.20"
+albucore = "0.0.21"
 eval-type-backport = "*"
 numpy = ">=1.24.4"
 opencv-python-headless = ">=4.9.0.80"
-pydantic = ">=2.7.0"
+pydantic = ">=2.9.2"
 PyYAML = "*"
 scipy = ">=1.10.0"
 
@@ -4222,4 +4222,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.10"
-content-hash = "56bb5eba204e0961fe204526846aa226a832d8cea31646f721804d6c67fbb900"
+content-hash = "a2c041449c774e5cceb11acb093cda00837efd382702dbe1389714ce9e467885"
