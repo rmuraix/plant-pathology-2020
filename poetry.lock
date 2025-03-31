@@ -160,14 +160,14 @@ stringzilla = ">=3.10.4"
 
 [[package]]
 name = "albumentations"
-version = "1.4.24"
-description = "Fast, flexible, and advanced augmentation library for deep learning, computer vision, and medical imaging. Albumentations offers a wide range of transformations for both 2D (images, masks, bboxes, keypoints) and 3D (volumes, volumetric masks) data, with optimized performance and seamless integration into ML workflows."
+version = "2.0.5"
+description = "Fast, flexible, and advanced augmentation library for deep learning, computer vision, and medical imaging. Albumentations offers a wide range of transformations for both 2D (images, masks, bboxes, keypoints) and 3D (volumes, volumetric masks, keypoints) data, with optimized performance and seamless integration into ML workflows."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "albumentations-1.4.24-py3-none-any.whl", hash = "sha256:2f639257a11e681071f4f7d10f6a6d874ae705bcce52746874cd8d7e317a16d7"},
-    {file = "albumentations-1.4.24.tar.gz", hash = "sha256:cc8874cb0abccc9117aefacbe385c354ac824fa142f46a6c0896d65cec5f8a6d"},
+    {file = "albumentations-2.0.5-py3-none-any.whl", hash = "sha256:1fc253942d34dd7c07652bf6511049c8bb7d522baec7f1fe355df16293c3c7b6"},
+    {file = "albumentations-2.0.5.tar.gz", hash = "sha256:e19e1c0f14c903c3c230f3d83f14814b84f1180393189bf96779f653031f3278"},
 ]
 
 [package.dependencies]
@@ -4467,4 +4467,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.10"
-content-hash = "c00734732d1d24f6f7442f964870c1c568289ace7c167f0973c79c891ffc3b46"
+content-hash = "aebd2c6f639e9d6db2629bb953b1881bbc8b0e308ae57448fd0e25c29668c391"
