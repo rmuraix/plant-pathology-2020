@@ -2202,14 +2202,14 @@ numpy = [
 
 [[package]]
 name = "optuna"
-version = "4.2.1"
+version = "4.4.0"
 description = "A hyperparameter optimization framework"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "optuna-4.2.1-py3-none-any.whl", hash = "sha256:6d38199013441d3f70fac27136e05c0188c5f4ec3848db708ac311cbdeb30dbf"},
-    {file = "optuna-4.2.1.tar.gz", hash = "sha256:2ecd74cdc8aaf5dda1f2b9e267999bab21def9a33e0a4f415ecae0c468c401e0"},
+    {file = "optuna-4.4.0-py3-none-any.whl", hash = "sha256:fad8d9c5d5af993ae1280d6ce140aecc031c514a44c3b639d8c8658a8b7920ea"},
+    {file = "optuna-4.4.0.tar.gz", hash = "sha256:a9029f6a92a1d6c8494a94e45abd8057823b535c2570819072dbcdc06f1c1da4"},
 ]
 
 [package.dependencies]
@@ -4384,4 +4384,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.10"
-content-hash = "1d3813884d8d326ad2b8bf449a95df33efa67ec1df1bba2d5782cea3f0baed35"
+content-hash = "fb4d5f77552dd8bd1f6583a5d87b29551afe9194884350fc34f2e49092ca15b5"
