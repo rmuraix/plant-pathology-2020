@@ -21,7 +21,7 @@ lightning = "2.4.0"
 scipy = "1.15.3"
 tqdm = "4.67.1"
 albumentations = "1.4.24"
-wandb = "0.19.11"
+wandb = "0.20.1"
 optuna = "4.4.0"
 
 [tool.poetry.group.dev.dependencies]
