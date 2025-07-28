@@ -28,7 +28,7 @@ optuna = "4.4.0"
 ruff = "0.12.4"
 ipykernel = "6.29.5"
 pre-commit = "4.2.0"
-nbdev = "2.4.4"
+nbdev = "2.4.5"
 
 [tool.ruff]
 extend-include = ["*.ipynb"]
