@@ -1907,14 +1907,14 @@ typing-extensions = {version = ">=4.1.0", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "nbdev"
-version = "2.4.5"
+version = "2.4.6"
 description = "Create delightful software with Jupyter Notebooks"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "nbdev-2.4.5-py3-none-any.whl", hash = "sha256:4ed72a3fb48ec6cbd1ff69e4ea3b31c1e3fe7cdacbafef4579914d5c15ab8994"},
-    {file = "nbdev-2.4.5.tar.gz", hash = "sha256:12fa7aedec70515bbb0efdf3f39000793541e0209c047cd115761cabe284a63d"},
+    {file = "nbdev-2.4.6-py3-none-any.whl", hash = "sha256:0ada766a3370e0ec3691279a028b0e817e71a9c1a3342bdf05e08eb519c74e11"},
+    {file = "nbdev-2.4.6.tar.gz", hash = "sha256:9ebe5b1f287224314e8a534e096dc31faed0f89da7fa30ef5e1a8f8977215324"},
 ]
 
 [package.dependencies]
@@ -4402,4 +4402,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.10"
-content-hash = "6298f6fdf2ce5d675f0dcbd9f6883104a58c209df9eed2e298458bcbbce45670"
+content-hash = "68ba6cbd91306b28f756365c2e1190790aa83e53f34273855dcf87dda142408c"
