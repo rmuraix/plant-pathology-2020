@@ -4168,26 +4168,26 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 
 [[package]]
 name = "wandb"
-version = "0.21.1"
+version = "0.21.4"
 description = "A CLI and library for interacting with the Weights & Biases API."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "wandb-0.21.1-py3-none-macosx_10_14_x86_64.whl", hash = "sha256:96f9eedeae428de0d88f9751fb81f1b730ae7902f35c2f5a7a904d7733f124f3"},
-    {file = "wandb-0.21.1-py3-none-macosx_11_0_arm64.whl", hash = "sha256:41a1ec1b98d9d7e1bcafc483bce82e184b6cbae7531328a0fe8dd0f56d96a92e"},
-    {file = "wandb-0.21.1-py3-none-macosx_11_0_x86_64.whl", hash = "sha256:f74d4691c38318ed8611e00ca3246b4152a03ff390fdce41816bea5705452a73"},
-    {file = "wandb-0.21.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8c8fbd60b9abf4b9bec201f311602f61394d41a3503c801750b03975a5e36d1b"},
-    {file = "wandb-0.21.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5ded9313672630c0630f5b13c598ce9aa0e932e811ebc18823fcc4d73acfb6bb"},
-    {file = "wandb-0.21.1-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:44f3194d697b409f91708c50c5f9d56e282434a0d60ac380b64f0fb6991cd630"},
-    {file = "wandb-0.21.1-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:e0b68bb6dbe94f1910c665c755f438292df40c272feb1a8b42208c1df52cce26"},
-    {file = "wandb-0.21.1-py3-none-win32.whl", hash = "sha256:98306c3fb369dfafb7194270b938b000ea2bb08dbddff10c19b5a805fd5cab80"},
-    {file = "wandb-0.21.1-py3-none-win_amd64.whl", hash = "sha256:8be92a7e92b5cb5ce00ec0961f9dbaad7757ffdbc5b5a8f2cc7188e23f653f0a"},
-    {file = "wandb-0.21.1.tar.gz", hash = "sha256:753bbdaa3a7703344056e019425b39c17a3d31d8ca0c4d13c4efc046935b08b9"},
+    {file = "wandb-0.21.4-py3-none-macosx_10_14_x86_64.whl", hash = "sha256:c681ef7adb09925251d8d995c58aa76ae86a46dbf8de3b67353ad99fdef232d5"},
+    {file = "wandb-0.21.4-py3-none-macosx_12_0_arm64.whl", hash = "sha256:d35acc65c10bb7ac55d1331f7b1b8ab761f368f7b051131515f081a56ea5febc"},
+    {file = "wandb-0.21.4-py3-none-macosx_12_0_x86_64.whl", hash = "sha256:765e66b57b7be5f393ecebd9a9d2c382c9f979d19cdee4a3f118eaafed43fca1"},
+    {file = "wandb-0.21.4-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:06127ec49245d12fdb3922c1eca1ab611cefc94adabeaaaba7b069707c516cba"},
+    {file = "wandb-0.21.4-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:48d4f65f1be5f5a25b868695e09cdbfe481678220df349a8c2cbed3992fb497f"},
+    {file = "wandb-0.21.4-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:ebd11f78351a3ca22caa1045146a6d2ad9e62fed6d0de2e67a0db5710d75103a"},
+    {file = "wandb-0.21.4-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:595b9e77591a805653e05db8b892805ee0a5317d147ef4976353e4f1cc16ebdc"},
+    {file = "wandb-0.21.4-py3-none-win32.whl", hash = "sha256:f9c86eb7eb7d40c6441533428188b1ae3205674e80c940792d850e2c1fe8d31e"},
+    {file = "wandb-0.21.4-py3-none-win_amd64.whl", hash = "sha256:2da3d5bb310a9f9fb7f680f4aef285348095a4cc6d1ce22b7343ba4e3fffcd84"},
+    {file = "wandb-0.21.4.tar.gz", hash = "sha256:b350d50973409658deb455010fafcfa81e6be3470232e316286319e839ffb67b"},
 ]
 
 [package.dependencies]
-click = ">=7.1,<8.0.0 || >8.0.0"
+click = ">=8.0.1"
 gitpython = ">=1.0.0,<3.1.29 || >3.1.29"
 packaging = "*"
 platformdirs = "*"
@@ -4402,4 +4402,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.10"
-content-hash = "29f5b681d901e806e034a2bc3c9f1491935124c245990b38488176762ce948d0"
+content-hash = "f4b834a7bb69dbc9c6198c6884bedcd97df01044fec3ae165563789c4be58e38"
