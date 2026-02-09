@@ -795,18 +795,15 @@ tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipyth
 
 [[package]]
 name = "fastcore"
-version = "1.11.3"
+version = "1.12.11"
 description = "Python supercharged for fastai development"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "fastcore-1.11.3-py3-none-any.whl", hash = "sha256:998825f8f69c44ab16a156bb60e9a6d0988f3e8aa5b2459ec95289b520cf1c0b"},
-    {file = "fastcore-1.11.3.tar.gz", hash = "sha256:5eac82affc11d529f5ed1c3ab1eea6c957301f876a9077f8425a9ead895ecc36"},
+    {file = "fastcore-1.12.11-py3-none-any.whl", hash = "sha256:b6a0ce9f48509405109251d00ac0576cfe5cba0a2b1b495a4126283969efbad5"},
+    {file = "fastcore-1.12.11.tar.gz", hash = "sha256:1e301add06f8b1240b5484197b221eeac00c77daf25c67ddd559020527f2a6d7"},
 ]
-
-[package.dependencies]
-packaging = "*"
 
 [package.extras]
 dev = ["llms-txt", "matplotlib", "nbclassic", "nbdev (>=0.2.39)", "numpy", "pandas", "pillow", "plum-dispatch", "pysymbol_llm", "toolslm", "torch"]
@@ -1933,14 +1930,14 @@ typing-extensions = {version = ">=4.1.0", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "nbdev"
-version = "2.4.10"
+version = "2.4.14"
 description = "Create delightful software with Jupyter Notebooks"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "nbdev-2.4.10-py3-none-any.whl", hash = "sha256:ee56d30481d3fed07ef2a0d75ca141508fffb287dd9aad1bfe897485282ad67f"},
-    {file = "nbdev-2.4.10.tar.gz", hash = "sha256:986da4b491fb1dbf2948678fb4a4aaa23b005834c83672b690c351756b00e339"},
+    {file = "nbdev-2.4.14-py3-none-any.whl", hash = "sha256:322ba26d31bc967a235258132d950038d440ed0c52fab6dafa9ef5da3182c003"},
+    {file = "nbdev-2.4.14.tar.gz", hash = "sha256:cd751b5057f4f089dc6c33bab078993fa285be117777e1ac14b3e9d84b805b78"},
 ]
 
 [package.dependencies]
@@ -1948,7 +1945,7 @@ asttokens = "*"
 astunparse = "*"
 build = "*"
 execnb = ">=0.1.12"
-fastcore = ">=1.11.0"
+fastcore = ">=1.12.3"
 fastgit = "*"
 ghapi = ">=1.0.3"
 packaging = "*"
@@ -4429,4 +4426,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.10"
-content-hash = "02d26e7bf643302cc217fa9d56a0addbbaeb51cdf0263eaba02d6a71bc0f88b6"
+content-hash = "3310eee7d22c07c4edc45d6db717190666a59ccf20de4ad852fec57c91324794"
